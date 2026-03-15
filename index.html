@@ -1,18 +1,84 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark no-js">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>John Doe - Full-Stack Engineer</title>
-    <meta name="description" content="Portfolio of John Doe, a Full-Stack Engineer crafting intuitive user experiences." />
+    <title>Mohammed Asif - Full-Stack Developer & Data Scientist</title>
+    <meta name="description" content="Portfolio of Mohammed Asif, a Full-Stack Developer and Data Science Enthusiast. Delivering smart solutions with AI and precision." />
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    
+    <script>
+      // Register GSAP Plugins
+      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+      // Initialize Lenis
+      document.addEventListener('DOMContentLoaded', () => {
+        const lenis = new Lenis({
+          duration: 0.8, // Reduced for faster feel
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true,
+          wheelMultiplier: 1.1, // Slightly increased for more responsive scroll
+          smoothTouch: false,
+          touchMultiplier: 2,
+          infinite: false,
+        });
+
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+
+        requestAnimationFrame(raf);
+        
+        // Connect Lenis to ScrollTrigger
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+      });
+    </script>
+    
+    <style>
+      /* Fail-safe: ensure content is visible if JS fails */
+      .gsap-reveal { opacity: 0; }
+      .no-js .gsap-reveal { opacity: 1 !important; transform: none !important; }
+      /* Global hide for content before GSAP loads */
+      .opacity-0 { opacity: 0; }
+      .no-js .opacity-0 { opacity: 1 !important; }
+
+      /* Noise Texture Overlay */
+      .noise-bg::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.02;
+        pointer-events: none;
+        z-index: 50;
+        background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" /%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" /%3E%3C/svg%3E');
+      }
+    </style>
+    <script>document.documentElement.classList.remove('no-js');</script>
+    
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     
     <!-- Custom Tailwind Config -->
@@ -22,31 +88,103 @@
         theme: {
           extend: {
             colors: {
-              "primary": "#13a4ec",
-              "background-light": "#f6f7f8",
-              "background-dark": "#101c22",
+              "primary": {
+                DEFAULT: "#00F0FF", // Cyberpunk Neon Cyan
+                50: "#e0fcff",
+                100: "#b3f8ff",
+                200: "#80f3ff",
+                300: "#4df0ff",
+                400: "#26ecff",
+                500: "#00f0ff", // Core
+                600: "#00d0e6",
+                700: "#00a5b8",
+                800: "#007d8f",
+                900: "#005a66",
+                950: "#003b42",
+              },
+              // Map legacy variables to the new unified primary to avoid breaking existing classes instantly,
+              // but keeping the color tone consistent across the entire site.
+              "indigo-vibrant": "#00F0FF",
+              "cyan-vibrant": "#00F0FF",
+              "accent-vibrant": "#00F0FF",
+              "background-light": "#F8FAFC",
+              "background-dark": "#050814",
             },
             fontFamily: {
-              "display": ["Inter", "sans-serif"]
+              "display": ["'Space Grotesk'", "sans-serif"],
+              "sans": ["Inter", "sans-serif"]
             },
             borderRadius: {
-              "DEFAULT": "0.25rem",
-              "lg": "0.5rem",
-              "xl": "0.75rem",
+              "DEFAULT": "0.5rem",
+              "lg": "0.75rem",
+              "xl": "1rem",
+              "2xl": "1.5rem",
+              "3xl": "2rem",
               "full": "9999px"
             },
+            backdropBlur: {
+              xs: '2px',
+              '2xl': '40px',
+            },
+            animation: {
+              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'float': 'float 3s ease-in-out infinite',
+              'spin-slow': 'spin 12s linear infinite',
+              'reverse-spin-slow': 'reverse-spin 15s linear infinite',
+            },
+            keyframes: {
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-10px)' },
+              },
+              'reverse-spin': {
+                from: { transform: 'rotate(360deg)' },
+                to: { transform: 'rotate(0deg)' },
+              }
+            }
           },
         },
       }
     </script>
     
     <style>
+      .glass {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .glass-card {
+        background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255,255,255,0.1);
+      }
+      .text-gradient {
+        background: linear-gradient(135deg, #00F0FF 0%, #00d0e6 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-size: 200% auto;
+        animation: gradient-flow 5s linear infinite;
+        text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      }
+      @keyframes gradient-flow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+      .glow-on-hover:hover {
+        box-shadow: 0 0 30px rgba(14, 165, 233, 0.25);
+      }
       .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
       /* Smooth scrolling for anchor links */
       html {
-        scroll-behavior: smooth;
+        scroll-behavior: auto; /* Handled by Lenis */
+      }
+      body {
+        cursor: crosshair; /* Consistent with the custom cursor feel */
       }
     </style>
   <script type="importmap">
@@ -59,8 +197,8 @@
 }
 </script>
 </head>
-  <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased">
+  <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased noise-bg">
     <div id="root"></div>
-    <script type="module" src="./index.tsx"></script>
+    <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>
