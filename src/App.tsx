@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
+import ScrollytellingHero from './components/ScrollytellingHero';
 import TechStack from './components/TechStack';
 import Projects from './components/Projects';
 import Cursor from './components/Cursor';
@@ -46,7 +46,7 @@ const App: React.FC = () => {
       </div>
 
       <div className="relative z-10">
-        <Hero />
+        <ScrollytellingHero />
 
         <section id="skills">
           <TechStack />

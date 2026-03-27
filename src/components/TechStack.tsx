@@ -6,11 +6,20 @@ interface TechItemProps {
 }
 
 const TechItem: React.FC<TechItemProps> = ({ icon, name }) => (
-  <div className="tech-item flex items-center gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-5 shadow-xl shadow-slate-200/50 dark:shadow-none transition-all duration-300 group cursor-none">
-    <div className="tech-icon-container flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/5 text-primary transition-all group-hover:bg-primary group-hover:text-white group-hover:scale-110">
-      <span className="material-symbols-outlined text-2xl">{icon}</span>
+  <div className="tech-item flex items-center gap-3 md:gap-4 rounded-xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-3 md:p-5 shadow-lg dark:shadow-none transition-all duration-300 group relative overflow-hidden h-full">
+    {/* Item Ornaments */}
+    <div className="absolute top-0 left-0 size-2 border-t border-l border-primary/20 group-hover:border-primary/60 transition-colors"></div>
+    <div className="absolute bottom-0 right-0 size-2 border-b border-r border-primary/20 group-hover:border-primary/60 transition-colors"></div>
+    
+    <div className="tech-icon-container flex size-10 md:size-12 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-primary transition-all group-hover:bg-primary group-hover:text-slate-950 relative z-10 shadow-inner">
+      <span className="material-symbols-outlined text-xl md:text-2xl">{icon}</span>
     </div>
-    <h2 className="text-sm font-black leading-tight text-slate-800 dark:text-slate-200 uppercase tracking-wider">{name}</h2>
+    <div className="flex flex-col relative z-10">
+      <h2 className="text-[10px] sm:text-xs md:text-sm font-black leading-tight text-slate-800 dark:text-slate-200 uppercase tracking-wider truncate md:whitespace-normal">{name}</h2>
+    </div>
+    
+    {/* Subtle Inner Glow on Hover */}
+    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500"></div>
   </div>
 );
 
@@ -23,21 +32,7 @@ const TechStack: React.FC = () => {
     if (!gsap || !ScrollTrigger) return;
 
     const ctx = gsap.context(() => {
-      // 1. Narrative Section Title Reveal
-      gsap.fromTo('.tech-title-narrative',
-        { y: 60, opacity: 0 },
-        {
-          y: 0, opacity: 1,
-          duration: 1.5,
-          ease: "power4.out",
-          scrollTrigger: {
-            trigger: '.tech-title-narrative',
-            start: "top 90%",
-          }
-        }
-      );
-
-      // 2. Reveal Categories with Liquid Stagger
+      // Reveal Categories with Liquid Stagger
       gsap.utils.toArray('.tech-category').forEach((category: any) => {
         gsap.fromTo(category,
           { y: 80, opacity: 0, filter: "blur(10px)" },
@@ -52,40 +47,7 @@ const TechStack: React.FC = () => {
           }
         );
 
-        // 3. Magnetic Hover Effect for items
         const items = category.querySelectorAll('.tech-item');
-        items.forEach((item: HTMLElement) => {
-          item.addEventListener('mousemove', (e) => {
-            const rect = item.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(item, {
-              x: x * 0.3,
-              y: y * 0.3,
-              duration: 0.4,
-              ease: "power2.out"
-            });
-
-            gsap.to(item.querySelector('.tech-icon-container'), {
-              x: x * 0.15,
-              y: y * 0.15,
-              duration: 0.4,
-              ease: "power2.out"
-            });
-          });
-
-          item.addEventListener('mouseleave', () => {
-            gsap.to([item, item.querySelector('.tech-icon-container')], {
-              x: 0,
-              y: 0,
-              duration: 0.6,
-              ease: "elastic.out(1, 0.3)"
-            });
-          });
-        });
-
-        // Intro stagger for items
         gsap.fromTo(items,
           { y: 30, opacity: 0, scale: 0.9 },
           {
@@ -101,7 +63,6 @@ const TechStack: React.FC = () => {
         );
       });
 
-      // 4. Collaborative Tools reveal
       gsap.fromTo('.tools-section',
         { y: 40, opacity: 0 },
         {
@@ -120,13 +81,27 @@ const TechStack: React.FC = () => {
 
   return (
     <div ref={containerRef} id="skills" className="relative flex h-auto w-full flex-col items-center justify-center py-6 md:py-8 lg:py-10 xl:py-12 px-6 md:px-8 lg:px-12 bg-transparent overflow-hidden">
+      {/* Structural Ornaments */}
+      <div className="absolute top-0 right-0 size-32 border-t border-r border-primary/10 rounded-tr-3xl pointer-events-none opacity-40"></div>
+      <div className="absolute bottom-0 left-0 size-32 border-b border-l border-primary/10 rounded-bl-3xl pointer-events-none opacity-40"></div>
+      
+      {/* Grid Pattern Background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,240,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-30"></div>
+      
+      {/* Scanline Animation */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10 opacity-10">
+        <div className="w-full h-[1px] bg-primary/30 absolute top-[-10%] animate-[scanline_6s_linear_infinite]"></div>
+      </div>
 
       <div className="w-full max-w-7xl relative z-10">
-        <div className="flex flex-col gap-10 md:gap-14 lg:gap-16">
+        <div className="flex flex-col gap-8 md:gap-14 lg:gap-16">
           {/* Main Header Narrative */}
-          <div className="flex flex-col items-start gap-4 border-l-4 border-primary pl-6 w-full max-w-7xl mx-auto mb-2 md:mb-4">
+          <div className="flex flex-col items-start gap-4 border-l-4 border-primary pl-6 w-full max-w-7xl mx-auto mb-2 md:mb-4 relative">
+             {/* Diagonal Header Detail */}
+            <div className="absolute -left-1 -top-1 size-3 bg-primary rounded-sm shadow-[0_0_10px_#00F0FF]"></div>
+            
             <div className="flex items-center gap-4">
-              <span className="text-[10px] font-black uppercase tracking-[0.6em] text-primary">SKILLS & EXPERTISE</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.6em] text-primary">Technical Proficiency</span>
               <div className="h-[1px] w-12 bg-primary/20"></div>
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900 dark:text-white font-display">
@@ -137,15 +112,13 @@ const TechStack: React.FC = () => {
             </p>
           </div>
 
-          {/* Skills Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
-            {/* Full Stack Development */}
             <div className="tech-category flex flex-col gap-6 md:gap-10">
               <div className="flex items-center gap-6">
                 <div className="h-[2px] w-12 bg-primary/30"></div>
-                <h3 className="text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Frontend & Infrastructure</h3>
+                <h3 className="text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Core Engineering</h3>
               </div>
-              <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5 lg:gap-6">
                 <TechItem icon="terminal" name="TypeScript" />
                 <TechItem icon="developer_mode_tv" name="React.js" />
                 <TechItem icon="hub" name="Supabase" />
@@ -157,13 +130,12 @@ const TechStack: React.FC = () => {
               </div>
             </div>
 
-            {/* Data Science & AI */}
             <div className="tech-category flex flex-col gap-6 md:gap-10">
               <div className="flex items-center gap-6">
                 <div className="h-[2px] w-12 bg-indigo-500/30"></div>
-                <h3 className="text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Data & AI Engineering</h3>
+                <h3 className="text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Data & AI Systems</h3>
               </div>
-              <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5 lg:gap-6">
                 <TechItem icon="data_exploration" name="Python" />
                 <TechItem icon="precision_manufacturing" name="Machine Learning" />
                 <TechItem icon="psychology" name="Deep Learning" />
@@ -176,12 +148,13 @@ const TechStack: React.FC = () => {
             </div>
           </div>
 
-          {/* Tools & Workflow */}
-          <div className="tools-section flex flex-col items-center gap-8 md:gap-12 pt-10 md:pt-16 lg:pt-20 border-t border-slate-200 dark:border-white/5">
-            <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.8em] text-slate-400">ECOSYSTEM</h3>
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8 lg:gap-10">
+          <div className="tools-section flex flex-col items-center gap-6 md:gap-12 pt-10 border-t border-slate-200 dark:border-white/5 relative">
+            <div className="absolute top-[-1px] left-1/2 -translate-x-1/2 w-24 h-[1px] bg-primary"></div>
+            <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.8em] text-slate-400">ECOSYSTEM_DATA</h3>
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8 lg:gap-10 px-4">
               {["Git / GitHub", "Docker", "Figma", "AWS", "Postman", "Cloudinary"].map(tool => (
-                <span key={tool} className="px-6 md:px-8 py-2 md:py-3 rounded-2xl glass dark:bg-white/[0.02] text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 transition-all hover:text-primary hover:border-primary/30 hover:-translate-y-1">
+                <span key={tool} className="px-5 md:px-8 py-2 md:py-3 rounded-xl glass dark:bg-white/[0.02] text-[9px] md:text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 transition-all hover:text-primary hover:border-primary/30 relative group overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-full bg-primary/20 group-hover:bg-primary transition-colors"></div>
                   {tool}
                 </span>
               ))}

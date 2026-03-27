@@ -114,10 +114,10 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <div ref={heroRef} className="relative flex min-h-[100dvh] w-full flex-col bg-transparent group/design-root overflow-x-hidden">
+    <div ref={heroRef} className="relative flex h-auto sm:min-h-screen md:min-h-[100dvh] w-full flex-col bg-transparent group/design-root overflow-x-hidden">
       <div className="layout-container flex h-full grow flex-col relative z-20">
 
-        <main className="flex flex-1 items-center justify-center pt-20 pb-10 px-6 md:pt-24 md:pb-16 md:px-8 lg:pt-20 lg:pb-16 lg:px-12 xl:px-0 relative z-10">
+        <main className="flex flex-1 items-start md:items-center justify-center pt-24 pb-12 md:pt-24 md:pb-16 md:px-8 lg:pt-20 lg:pb-16 lg:px-12 xl:px-0 relative z-10">
           <div className="w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-6 md:gap-8 animate-float" style={{ animationDuration: '8s' }}>
 
             <div className="flex flex-col gap-4 items-center">
@@ -155,21 +155,21 @@ const Hero: React.FC = () => {
                 </div>
                 <div className="flex flex-col gap-1 md:gap-2 items-center">
                   <h1 ref={titleRef} className="mt-1 md:mt-2 text-center leading-[0.9]">
-                    <GlitchText text="M. Asif" sizeClass="text-[clamp(3rem,15vw,9rem)]" />
+                    <GlitchText text="M. Asif" sizeClass="text-[clamp(3.5rem,15vw,9rem)]" />
                   </h1>
-                   <p ref={descriptionRef} className="max-w-xl md:max-w-2xl text-[clamp(0.875rem,2vw,1.25rem)] text-slate-600 dark:text-slate-400 font-light leading-snug tracking-tight">
+                   <p ref={descriptionRef} className="max-w-xs sm:max-w-xl md:max-w-2xl text-sm md:text-base lg:text-lg text-slate-600 dark:text-slate-400 font-light leading-relaxed tracking-tight px-4 sm:px-0">
                     I craft <span className="text-slate-950 dark:text-white font-semibold">high-fidelity</span> digital experiences using <span className="text-primary italic font-medium">AI-driven precision</span> and modern industrial stacks.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full sm:w-auto">
-              <a href="#projects" className="group relative flex w-full sm:w-auto min-w-[200px] md:min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-2xl h-14 md:h-16 px-8 md:px-10 bg-primary text-slate-900 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(0,240,255,0.4)] hover:shadow-[0_20px_50px_rgba(0,240,255,0.6)]">
+            <div ref={buttonsRef} className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full sm:w-auto px-6 sm:px-0">
+              <a href="#projects" className="group relative flex w-full sm:w-auto max-w-[320px] sm:min-w-[240px] cursor-pointer items-center justify-center overflow-hidden rounded-2xl h-14 md:h-16 px-8 md:px-10 bg-primary text-slate-900 text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-[0_10px_30px_rgba(0,240,255,0.4)] hover:shadow-[0_20px_50px_rgba(0,240,255,0.6)]">
                 <span className="relative z-10">View My Projects</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               </a>
-              <a href="#contact" className="flex w-full sm:w-auto min-w-[200px] md:min-w-[240px] cursor-pointer items-center justify-center rounded-2xl h-14 md:h-16 px-8 md:px-10 border-2 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all hover:border-primary/50 hover:bg-primary/5 active:scale-95">
+              <a href="#contact" className="flex w-full sm:w-auto max-w-[320px] sm:min-w-[240px] cursor-pointer items-center justify-center rounded-2xl h-14 md:h-16 px-8 md:px-10 border-2 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white text-[10px] md:text-[11px] font-black uppercase tracking-[0.2em] transition-all hover:border-primary/50 hover:bg-primary/5 active:scale-95">
                 Contact Me
               </a>
             </div>

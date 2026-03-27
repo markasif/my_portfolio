@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-transparent flex flex-col items-center gap-8 px-5 py-16 md:py-24 text-center border-t border-slate-200 dark:border-white/5 relative z-10">
+    <footer className="w-full bg-transparent flex flex-col items-center gap-8 px-5 py-6 md:py-8 lg:py-10 xl:py-12 text-center dark:border-white/5 relative z-10">
       <div className="flex flex-wrap justify-center gap-8 md:gap-12">
         <a aria-label="GitHub Profile" className="text-slate-400 hover:text-primary transition-all hover:-translate-y-1.5" href="https://github.com/markasif" target="_blank" rel="noopener noreferrer">
           <svg aria-hidden="true" className="h-6 w-6 md:h-7 md:w-7" fill="currentColor" viewBox="0 0 24 24">
@@ -16,8 +16,7 @@ const Footer: React.FC = () => {
         </a>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="text-[11px] font-black uppercase tracking-[0.5em] text-slate-500 dark:text-slate-400">Mohammed Asif</p>
-        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-slate-600 italic">Built with Precision & Artificial Intelligence • © 2026</p>
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 dark:text-slate-600">© 2026 Mohammed Asif • All Rights Reserved</p>
       </div>
     </footer>
   );

@@ -136,7 +136,7 @@ const Experience: React.FC = () => {
   }, []);
 
   return (
-    <div id="experience" ref={containerRef} className="relative flex h-auto w-full flex-col bg-transparent py-10 md:py-16 lg:py-24 px-6 md:px-8 lg:px-12 overflow-hidden">
+    <div id="experience" ref={containerRef} className="relative flex h-auto w-full flex-col bg-transparent py-6 md:py-8 lg:py-10 xl:py-12 px-6 md:px-8 lg:px-12 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto flex flex-col gap-10 md:gap-14 lg:gap-16 relative z-10">
         <div className="experience-header flex flex-col items-start gap-4 border-l-4 border-primary pl-6">
           <div className="flex items-center gap-4">
