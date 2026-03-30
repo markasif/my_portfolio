@@ -91,7 +91,7 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined text-lg">share</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">LINKEDIN_PROF</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">LINKEDIN</span>
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">linkedin.com/in/asifap</span>
               </div>
             </a>
@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined text-lg">code</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">GITHUB_ARCHIVE</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">GITHUB</span>
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">github.com/markasif</span>
               </div>
             </a>
@@ -113,7 +113,7 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined text-lg">send</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">TELEGRAM_COMM</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">TELEGRAM</span>
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">@telmeasif</span>
               </div>
             </a>
@@ -124,7 +124,7 @@ const Contact: React.FC = () => {
                 <span className="material-symbols-outlined text-lg">call</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">DIRECT_LINE</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400 mb-1">PHONE</span>
                 <span className="text-sm font-bold text-slate-700 dark:text-slate-200">+91 9567526150</span>
               </div>
             </a>

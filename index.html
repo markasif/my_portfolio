@@ -24,14 +24,15 @@
       // Initialize Lenis
       document.addEventListener('DOMContentLoaded', () => {
         const lenis = new Lenis({
-          duration: 0.8, // Reduced for faster feel
+          duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           orientation: 'vertical',
           gestureOrientation: 'vertical',
           smoothWheel: true,
-          wheelMultiplier: 1.1, // Slightly increased for more responsive scroll
-          smoothTouch: false,
-          touchMultiplier: 2,
+          wheelMultiplier: 1,
+          smoothTouch: true,
+          touchMultiplier: 2, // Enhanced swipe responsiveness
+          lerp: 0.1, // High-fidelity inertia
           infinite: false,
         });
 

@@ -57,46 +57,62 @@ const ScrollytellingHero: React.FC = () => {
 
     const airbnb = { frame: 0 };
     
+    const layout = { nw: 0, nh: 0, nx: 0, ny: 0 };
+    
     const updateCanvas = () => {
       const img = imagesRef.current[Math.round(airbnb.frame)];
       if (!img) return;
 
-      const canvasWidth = canvas.width;
-      const canvasHeight = canvas.height;
-      const imageWidth = img.naturalWidth;
-      const imageHeight = img.naturalHeight;
-      
-      // Full Screen Coverage (Cover Logic)
-      const ratio = Math.max(canvasWidth / imageWidth, canvasHeight / imageHeight);
-      
-      const nw = imageWidth * ratio;
-      const nh = imageHeight * ratio;
-      const nx = (canvasWidth - nw) / 2;
-      const ny = (canvasHeight - nh) / 2;
-
-      context.clearRect(0, 0, canvasWidth, canvasHeight);
-      context.drawImage(img, nx, ny, nw, nh);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.drawImage(img, layout.nx, layout.ny, layout.nw, layout.nh);
       
       setCurrentFrame(Math.round(airbnb.frame) + 1);
     };
 
-    // Main Scrollytelling Animation with Pinning (Optimized for Gapless Transition)
+    const handleResize = () => {
+      if (!canvasRef.current || !imagesRef.current[0]) return;
+      
+      // CAP DEVICE PIXEL RATIO (Limit to 2.0 for performance boost on high-end mobile)
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+
+      // Pre-calculate 'Cover' Logic for all frames (assuming same aspect ratio)
+      const img = imagesRef.current[0];
+      const ratio = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      layout.nw = img.naturalWidth * ratio;
+      layout.nh = img.naturalHeight * ratio;
+      layout.nx = (canvas.width - layout.nw) / 2;
+      layout.ny = (canvas.height - layout.nh) / 2;
+
+      updateCanvas();
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
         start: "top top",
-        end: "+=300%", // 3 viewports worth of scroll distance
-        scrub: 1.5, // High scrub for the "Physics" feel
-        pin: true,  // LOCK THE SCREEN
+        end: "+=180%", // Segmented for three distinct 'swipes/scrolls'
+        scrub: 2.5,
+        pin: true,
         anticipatePin: 1,
+        snap: {
+          snapTo: [0, 0.45, 1], // [Start/Coding, Coffee Phase, Heading Reveal]
+          duration: { min: 0.8, max: 1.5 },
+          delay: 0.1,
+          ease: "power2.inOut"
+        }
       }
     });
 
     tl.to(airbnb, {
       frame: TOTAL_FRAMES - 1,
-      snap: "frame",
-      ease: "power2.inOut", // Physics feel
-      onUpdate: updateCanvas
+      ease: "power1.inOut", // Smooth transition between chapters
+      onUpdate: () => {
+        updateCanvas();
+      }
     });
 
     updateCanvas();
@@ -108,18 +124,7 @@ const ScrollytellingHero: React.FC = () => {
     };
   }, [isLoaded]);
 
-  // 3. Responsive Canvas Resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (!canvasRef.current) return;
-      canvasRef.current.width = window.innerWidth * window.devicePixelRatio;
-      canvasRef.current.height = window.innerHeight * window.devicePixelRatio;
-    };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const progress = (imagesLoaded / TOTAL_FRAMES) * 100;
 
@@ -127,16 +132,48 @@ const ScrollytellingHero: React.FC = () => {
     <div ref={containerRef} className="relative h-screen w-full bg-[#050814]">
       {/* Loading State Overlay */}
       {!isLoaded && (
-        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050814] gap-4">
-           <div className="flex flex-col items-center gap-2">
-              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#00F0FF]">INITIALIZING_NEURAL_LINK</span>
-              <div className="w-64 h-1 border border-[#00F0FF]/20 rounded-full overflow-hidden relative">
-                 <div 
-                   className="absolute inset-y-0 left-0 bg-[#00F0FF] transition-all duration-300"
-                   style={{ width: `${progress}%` }}
-                 />
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050814] gap-8">
+           <div className="relative flex items-center justify-center">
+              {/* Outer Rotating Tech Ring */}
+              <div className="absolute size-48 border-2 border-dashed border-[#00F0FF]/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+              <div className="absolute size-40 border border-[#00F0FF]/10 rounded-full"></div>
+              
+              {/* Main SVG Spinner */}
+              <svg className="size-32 -rotate-90 transform" viewBox="0 0 100 100">
+                {/* Track */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="text-[#00F0FF]/10"
+                />
+                {/* Progress Arc */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  className="text-[#00F0FF] transition-all duration-500 ease-out"
+                  style={{
+                    strokeDasharray: '283',
+                    strokeDashoffset: 283 - (283 * progress) / 100,
+                    filter: 'drop-shadow(0 0 8px rgba(0, 240, 255, 0.5))'
+                  }}
+                />
+              </svg>
+
+              {/* Center Content */}
+              <div className="absolute flex flex-col items-center justify-center">
+                <span className="text-xl font-black text-[#00F0FF] tabular-nums">
+                  {Math.round(progress)}%
+                </span>
               </div>
-              <span className="text-[10px] font-mono text-[#00F0FF]/60">{imagesLoaded} / {TOTAL_FRAMES} SYNCED</span>
            </div>
         </div>
       )}
@@ -163,7 +200,7 @@ const ScrollytellingHero: React.FC = () => {
         <div className="relative h-full w-full flex flex-col items-center justify-center px-6 pointer-events-none">
           
           {/* Branding Content */}
-          <div className={`flex flex-col items-center gap-6 text-center transition-all duration-1000 transform ${currentFrame > 230 ? 'opacity-100 scale-100 y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
+          <div className={`flex flex-col items-center gap-6 text-center transition-all duration-1000 transform ${currentFrame >= 220 ? 'opacity-100 scale-100 y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
              <div className="flex flex-col items-center gap-2">
                <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent mb-4"></div>
                <GlitchText text="M. ASIF" sizeClass="text-[clamp(3rem,10vw,8rem)]" />
