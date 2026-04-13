@@ -48,19 +48,21 @@ const App: React.FC = () => {
       <div className="relative z-10">
         <ScrollytellingHero />
 
-        <section id="skills">
-          <TechStack />
-        </section>
+        <div className="relative z-20 bg-background-light dark:bg-background-dark shadow-[0_-50px_100px_rgba(5,8,20,0.5)]">
+          <section id="skills">
+            <TechStack />
+          </section>
 
-        <section id="projects">
-          <Projects />
-        </section>
+          <section id="projects">
+            <Projects />
+          </section>
 
-        <section id="experience">
-          <Experience />
-        </section>
+          <section id="experience">
+            <Experience />
+          </section>
 
-        <Contact />
+          <Contact />
+        </div>
         <Footer />
       </div>
     </div>

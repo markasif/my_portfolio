@@ -1,7 +1,9 @@
 import React, { useLayoutEffect, useRef, useState, useEffect } from 'react';
 import { GlitchText } from './GlitchText';
 
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 120;
+const ORIGINAL_TOTAL_FRAMES = 240;
+
 
 const ScrollytellingHero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,36 +14,47 @@ const ScrollytellingHero: React.FC = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(1);
 
-  // 1. Preloading Assets
+  // 1. Preloading Assets (Optimized & Progressive)
   useEffect(() => {
     let loadedCount = 0;
     const preloadedImages: HTMLImageElement[] = [];
 
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    // Prioritize loading the first frame for immediate display
+    const loadFirstFrame = () => {
       const img = new Image();
-      const frameNum = i.toString().padStart(3, '0');
-      img.src = `/images/me/ezgif-frame-${frameNum}.webp`;
-      
+      img.src = `/images/me/ezgif-frame-001.webp`;
       img.onload = () => {
-        loadedCount++;
-        setImagesLoaded(loadedCount);
-        if (loadedCount === TOTAL_FRAMES) {
-          setIsLoaded(true);
-        }
+        setIsLoaded(true); // Reveal UI as soon as the first frame is ready
+        startBackgroundLoading();
       };
-      
-      img.onerror = () => {
-        console.error(`Failed to load frame ${frameNum}`);
-        loadedCount++;
-        setImagesLoaded(loadedCount);
-        if (loadedCount === TOTAL_FRAMES) setIsLoaded(true);
-      };
+    };
 
-      preloadedImages.push(img);
-    }
-    
-    imagesRef.current = preloadedImages;
+    const startBackgroundLoading = () => {
+      for (let i = 1; i <= TOTAL_FRAMES; i++) {
+        const img = new Image();
+        // Map 120 frames to 240 original files (skipping every second frame)
+        const originalFrameIndex = Math.min((i * 2) - 1, ORIGINAL_TOTAL_FRAMES).toString().padStart(3, '0');
+        img.src = `/images/me/ezgif-frame-${originalFrameIndex}.webp`;
+        
+        img.onload = () => {
+          loadedCount++;
+          setImagesLoaded(loadedCount);
+        };
+        
+        img.onerror = () => {
+          console.error(`Failed to load frame ${originalFrameIndex}`);
+          loadedCount++;
+          setImagesLoaded(loadedCount);
+        };
+
+        preloadedImages.push(img);
+      }
+      imagesRef.current = preloadedImages;
+    };
+
+    loadFirstFrame();
   }, []);
+
 
   // 2. GSAP Scroll Trigger Mapping (Pinning Enabled)
   useLayoutEffect(() => {
@@ -95,7 +108,8 @@ const ScrollytellingHero: React.FC = () => {
         trigger: containerRef.current,
         start: "top top",
         end: "+=180%", // Segmented for three distinct 'swipes/scrolls'
-        scrub: 2.5,
+        scrub: 1, // More responsive to user scroll for "normal flow" feel
+
         pin: true,
         anticipatePin: 1,
         snap: {
@@ -109,11 +123,15 @@ const ScrollytellingHero: React.FC = () => {
 
     tl.to(airbnb, {
       frame: TOTAL_FRAMES - 1,
-      ease: "power1.inOut", // Smooth transition between chapters
+      ease: "none", // Linear mapping for predictable scroll speed
       onUpdate: () => {
         updateCanvas();
       }
     });
+
+    // No fade-out here to prevent blank background glitch.
+    // The next section in App.tsx (z-20) will naturally overlap this section.
+
 
     updateCanvas();
 
@@ -178,8 +196,9 @@ const ScrollytellingHero: React.FC = () => {
         </div>
       )}
 
-      {/* Sticky Hero Scene (Locks to Viewport) */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
+      {/* Hero Scene Container (GSAP handles pinning now) */}
+      <div className="relative h-screen w-full overflow-hidden">
+
         {/* Canvas Background Layer */}
         <div className="absolute inset-0 w-full h-full pointer-events-none">
           <canvas 
@@ -200,12 +219,13 @@ const ScrollytellingHero: React.FC = () => {
         <div className="relative h-full w-full flex flex-col items-center justify-center px-6 pointer-events-none">
           
           {/* Branding Content */}
-          <div className={`flex flex-col items-center gap-6 text-center transition-all duration-1000 transform ${currentFrame >= 220 ? 'opacity-100 scale-100 y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
+          <div className={`flex flex-col items-center gap-6 text-center transition-all duration-1000 transform ${currentFrame >= 105 ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10'}`}>
+
              <div className="flex flex-col items-center gap-2">
                <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-[#00F0FF] to-transparent mb-4"></div>
                <GlitchText text="M. ASIF" sizeClass="text-[clamp(3rem,10vw,8rem)]" />
                <span className="text-[10px] md:text-xs font-black uppercase tracking-[1em] text-[#00F0FF] ml-[1em]">
-                 Digital Architect
+                 Full Stack Developer
                </span>
              </div>
 
