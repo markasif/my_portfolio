@@ -1,0 +1,39 @@
+# Mohammed Asif - AI Engineer & Full Stack Developer (Full Profile & Context)
+
+> Complete knowledge base and structured overview of Mohammed Asif's software engineering background, technical stack, architecture patterns, and featured production projects.
+
+## Personal Information
+- **Full Name**: Mohammed Asif
+- **Title**: AI Engineer & Full Stack Developer
+- **Website**: https://mohammedasif.dev/
+- **Email**: apasif243@gmail.com
+- **WhatsApp / Phone**: +91 9567526150
+- **GitHub**: https://github.com/markasif
+- **LinkedIn**: https://www.linkedin.com/in/asifap/
+- **Telegram**: https://t.me/telmeasif
+
+## Technical Skills Summary
+- **Programming Languages**: Python, TypeScript, JavaScript, SQL, HTML5, CSS3
+- **AI / ML & Agentic Systems**: Model Context Protocol (MCP), LangChain, LangGraph, CrewAI, OpenAI API, Anthropic Claude API, Google Gemini API, HuggingFace, Ollama, DeepSeek
+- **Vector Databases & Search**: Qdrant, ChromaDB, pgvector, Pinecone, Hybrid Search (BM25 + Dense)
+- **Web Frameworks & Libraries**: React 19, Next.js, FastAPI, Node.js, Express, Tailwind CSS, GSAP, Lenis
+- **Databases & Caching**: PostgreSQL, Supabase, Redis, MongoDB
+- **DevOps & Infrastructure**: Docker, Git, GitHub Actions, Linux, Vercel, Railway
+
+## Projects In Production
+- **NeoHireX AI Hiring OS**:
+  - Description: Autonomous agentic recruitment platform featuring automated candidate evaluation, technical quiz generation, and voice-assisted interviews.
+  - Tech: Next.js, Python FastAPI, PostgreSQL, LangChain, Tailwind CSS.
+- **AskRaggy Enterprise RAG Engine**:
+  - Description: Enterprise document search and synthesis platform with citation generation, multi-format ingestion (PDF, DOCX, CSV), and semantic re-ranking.
+  - Tech: React, FastAPI, Qdrant, Sentence Transformers, Docker.
+- **GoodWell Wellness & Healthcare CRM**:
+  - Description: Real-time telemedicine scheduling and doctor-patient collaboration dashboard with automated notification workflows.
+  - Tech: React, Node.js, WebSockets, Tailwind CSS, PostgreSQL.
+- **NeoIntelli Business Automation**:
+  - Description: AI-driven CRM workflow automation system providing custom MCP tools for sales pipeline analytics and automated client outreach.
+  - Tech: Python, React, Redis, MCP Tools.
+
+## Inquiry & Collaboration
+Inquiries can be submitted via the contact form on https://mohammedasif.dev/#contact or directly by messaging on WhatsApp at +91 9567526150.
+

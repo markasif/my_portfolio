@@ -1,166 +1,220 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import SectionHeader from './SectionHeader';
+import { gsap, ScrollTrigger } from '../lib/gsap';
+import { 
+  getSkillOriginIcon, 
+  IconProps,
+  RAGIcon,
+  AgenticIcon,
+  MCPIcon,
+  LangChainIcon,
+  FAISSIcon,
+  LLMApiIcon,
+  YOLOIcon,
+  PromptDesignIcon,
+  PythonIcon,
+  NodejsIcon,
+  MicroservicesIcon,
+  MessageQueueIcon,
+  WebSocketIcon,
+  JWTIcon,
+  PaymentGatewayIcon,
+  ZodIcon,
+  TypeScriptIcon,
+  ReactIcon,
+  NextjsIcon,
+  TailwindIcon,
+  ShadcnIcon,
+  PerformanceIcon,
+  ResponsiveIcon,
+  ComponentIcon,
+  PostgresIcon,
+  MongoIcon,
+  SupabaseIcon,
+  SQLiteIcon,
+  PlaywrightIcon,
+  PytestIcon,
+  JestIcon,
+  DockerIcon,
+  KubernetesIcon,
+  VercelIcon,
+  GitIcon,
+  AgileIcon
+} from './TechIcons';
 
 interface TechItemProps {
-  icon: string;
   name: string;
+  shortName?: string;
+  tag?: string;
+  iconComponent?: React.FC<IconProps>;
 }
 
-const TechItem: React.FC<TechItemProps> = ({ icon, name }) => (
-  <div className="tech-item flex items-center gap-3 md:gap-4 rounded-xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-3 md:p-5 shadow-lg dark:shadow-none transition-all duration-300 group relative overflow-hidden h-full">
-    {/* Item Ornaments */}
-    <div className="absolute top-0 left-0 size-2 border-t border-l border-primary/20 group-hover:border-primary/60 transition-colors"></div>
-    <div className="absolute bottom-0 right-0 size-2 border-b border-r border-primary/20 group-hover:border-primary/60 transition-colors"></div>
-    
-    <div className="tech-icon-container flex size-10 md:size-12 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-primary transition-all group-hover:bg-primary group-hover:text-slate-950 relative z-10 shadow-inner">
-      <span className="material-symbols-outlined text-xl md:text-2xl">{icon}</span>
+const TechItem: React.FC<TechItemProps> = ({ name, shortName, tag, iconComponent }) => {
+  const Icon = iconComponent || getSkillOriginIcon(name);
+
+  return (
+    <div className="tech-item group relative flex items-center justify-between gap-2 sm:gap-3 p-2.5 sm:p-3.5 md:p-4 rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.06] hover:border-[#00F0FF]/40 transition-all duration-300 min-h-[60px] sm:min-h-[76px] md:min-h-[80px] h-full backdrop-blur-sm">
+      {/* Corner Ornaments */}
+      <div className="absolute top-0 left-0 size-1 sm:size-1.5 border-t border-l border-primary/20 group-hover:border-primary/60 transition-colors"></div>
+      <div className="absolute bottom-0 right-0 size-1 sm:size-1.5 border-b border-r border-primary/20 group-hover:border-primary/60 transition-colors"></div>
+      
+      <div className="flex items-center gap-2 sm:gap-3 relative z-10 min-w-0 flex-1">
+        {/* Transparent Icon Container */}
+        <div className="tech-icon-container flex size-7 sm:size-9 md:size-10 shrink-0 items-center justify-center bg-transparent transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)]">
+          <Icon className="size-full transition-transform duration-300" />
+        </div>
+
+        {/* Name and Tag */}
+        <div className="flex flex-col min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-1 sm:gap-2">
+            <span className="text-xs sm:text-sm font-bold tracking-tight text-white group-hover:text-primary transition-colors leading-tight">
+              {shortName ? (
+                <>
+                  <span className="sm:hidden">{shortName}</span>
+                  <span className="hidden sm:inline">{name}</span>
+                </>
+              ) : (
+                name
+              )}
+            </span>
+            {tag && (
+              <span className={`text-[7.5px] sm:text-[9px] font-mono px-1 sm:px-1.5 py-0.5 rounded border uppercase tracking-wider shrink-0 ${
+                tag === 'ApexSkill' 
+                  ? 'bg-primary/10 text-primary border-primary/30 font-bold' 
+                  : tag === 'Custom Tools' || tag === 'Live'
+                  ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 font-bold'
+                  : 'bg-white/5 text-slate-300 border-white/10'
+              }`}>
+                {tag}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="flex flex-col relative z-10">
-      <h2 className="text-[10px] sm:text-xs md:text-sm font-black leading-tight text-slate-800 dark:text-slate-200 uppercase tracking-wider truncate md:whitespace-normal">{name}</h2>
-    </div>
-    
-    {/* Subtle Inner Glow on Hover */}
-    <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500"></div>
-  </div>
-);
+  );
+};
 
 const TechStack: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
-    const gsap = (window as any).gsap;
-    const ScrollTrigger = (window as any).ScrollTrigger;
-    if (!gsap || !ScrollTrigger) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    const ctx = gsap.context(() => {
-      // Reveal Categories with Liquid Stagger
-      gsap.utils.toArray('.tech-category').forEach((category: any) => {
-        gsap.fromTo(category,
-          { y: 80, opacity: 0, filter: "blur(10px)" },
-          {
-            y: 0, opacity: 1, filter: "blur(0px)",
-            duration: 1.2,
-            ease: "expo.out",
-            scrollTrigger: {
-              trigger: category,
-              start: "top 85%",
-            }
-          }
-        );
+    const grid = container.querySelector('.tech-items-grid');
+    if (!grid) return;
 
-        const items = category.querySelectorAll('.tech-item');
-        gsap.fromTo(items,
-          { y: 30, opacity: 0, scale: 0.9 },
-          {
-            y: 0, opacity: 1, scale: 1,
-            duration: 0.8,
-            stagger: 0.05,
-            ease: "back.out(1.4)",
-            scrollTrigger: {
-              trigger: category,
-              start: "top 80%",
-            }
-          }
-        );
-      });
+    const items = grid.querySelectorAll('.tech-item');
 
-      gsap.fromTo('.tools-section',
-        { y: 40, opacity: 0 },
-        {
-          y: 0, opacity: 1,
-          duration: 1,
-          scrollTrigger: {
-            trigger: '.tools-section',
-            start: "top 95%",
-          }
+    // Set initial hidden 3D tilt state so cards are hidden before user reaches Skills
+    gsap.set(items, {
+      y: 50,
+      opacity: 0,
+      scale: 0.86,
+      rotateX: 20,
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          // Unobserve immediately: plays ONCE on reach, never replays on scroll back
+          observer.unobserve(entry.target);
+
+          // 3D Perspective Card Stagger Cascade
+          gsap.to(items, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            rotateX: 0,
+            duration: 0.6,
+            stagger: {
+              each: 0.035,
+              from: 'start',
+            },
+            ease: 'back.out(1.3)',
+          });
         }
-      );
-    }, containerRef);
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
 
-    return () => ctx.revert();
+    observer.observe(grid);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div ref={containerRef} id="skills" className="relative flex h-auto w-full flex-col items-center justify-center py-6 md:py-8 lg:py-10 xl:py-12 px-6 md:px-8 lg:px-12 bg-transparent overflow-hidden">
+    <div ref={containerRef} id="skills" className="relative flex h-auto w-full flex-col items-center justify-center py-8 md:py-10 lg:py-12 xl:py-14 px-6 md:px-8 bg-transparent overflow-hidden">
       {/* Structural Ornaments */}
       <div className="absolute top-0 right-0 size-32 border-t border-r border-primary/10 rounded-tr-3xl pointer-events-none opacity-40"></div>
       <div className="absolute bottom-0 left-0 size-32 border-b border-l border-primary/10 rounded-bl-3xl pointer-events-none opacity-40"></div>
       
       {/* Grid Pattern Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(0,240,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none opacity-30"></div>
-      
-      {/* Scanline Animation */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-10 opacity-10">
-        <div className="w-full h-[1px] bg-primary/30 absolute top-[-10%] animate-[scanline_6s_linear_infinite]"></div>
-      </div>
 
-      <div className="w-full max-w-7xl relative z-10">
-        <div className="flex flex-col gap-8 md:gap-14 lg:gap-16">
-          {/* Main Header Narrative */}
-          <div className="flex flex-col items-start gap-4 border-l-4 border-primary pl-6 w-full max-w-7xl mx-auto mb-2 md:mb-4 relative">
-             {/* Diagonal Header Detail */}
-            <div className="absolute -left-1 -top-1 size-3 bg-primary rounded-sm shadow-[0_0_10px_#00F0FF]"></div>
-            
-            <div className="flex items-center gap-4">
-              <span className="text-[10px] font-black uppercase tracking-[0.6em] text-primary">Technical Proficiency</span>
-              <div className="h-[1px] w-12 bg-primary/20"></div>
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900 dark:text-white font-display">
-              My Tech Stack
-            </h2>
-            <p className="max-w-2xl text-base md:text-lg text-slate-500 dark:text-slate-400 font-light leading-relaxed">
-              Orchestrating robust applications through an elite selection of languages, frameworks, and infrastructure tools.
-            </p>
-          </div>
+      <div className="w-full max-w-7xl relative z-10 flex flex-col gap-6 md:gap-8">
+        
+        {/* Main Header Narrative */}
+        <SectionHeader
+          badge="TECHNICAL PROFICIENCY"
+          title={<>Technical Skills &amp; <span className="text-primary">Architecture</span></>}
+          description="Enterprise expertise across autonomous multi-agent systems, custom MCP tools, scalable backend architectures, and high-performance front ends."
+        />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 lg:gap-24">
-            <div className="tech-category flex flex-col gap-6 md:gap-10">
-              <div className="flex items-center gap-6">
-                <div className="h-[2px] w-12 bg-primary/30"></div>
-                <h3 className="text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Core Engineering</h3>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5 lg:gap-6">
-                <TechItem icon="terminal" name="TypeScript" />
-                <TechItem icon="developer_mode_tv" name="React.js" />
-                <TechItem icon="hub" name="Supabase" />
-                <TechItem icon="api" name="API Integration" />
-                <TechItem icon="dns" name="Node.js" />
-                <TechItem icon="air" name="Tailwind CSS" />
-                <TechItem icon="database" name="Vite / Build" />
-                <TechItem icon="code" name="JavaScript" />
-              </div>
-            </div>
+        {/* All Skills Unified Grid (2 columns on mobile, responsive multi-col on desktop) */}
+        <div className="tech-items-grid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3.5 [perspective:1000px]">
+          {/* AI / Agentic & ML */}
+          <TechItem iconComponent={RAGIcon} name="RAG & CAG Architecture" shortName="RAG & CAG" tag="Live" />
+          <TechItem iconComponent={AgenticIcon} name="Agentic AI & Multi-Agent" shortName="Agentic AI" tag="ApexSkill" />
+          <TechItem iconComponent={MCPIcon} name="MCP (Build & Integrate)" shortName="Custom MCP" tag="Custom Tools" />
+          <TechItem iconComponent={LangChainIcon} name="LangChain Orchestration" shortName="LangChain" />
+          <TechItem iconComponent={FAISSIcon} name="FAISS & Vector Embeddings" shortName="FAISS & Vector" />
+          <TechItem iconComponent={LLMApiIcon} name="LLM APIs (Groq, OpenAI, Gemini)" shortName="LLM APIs" />
+          <TechItem iconComponent={YOLOIcon} name="YOLO / Computer Vision" shortName="YOLO Vision" tag="NeoHireX" />
+          <TechItem iconComponent={PromptDesignIcon} name="Prompt & Skill Design" shortName="Prompt Design" />
 
-            <div className="tech-category flex flex-col gap-6 md:gap-10">
-              <div className="flex items-center gap-6">
-                <div className="h-[2px] w-12 bg-indigo-500/30"></div>
-                <h3 className="text-[10px] sm:text-xs md:text-sm font-black uppercase tracking-[0.4em] text-slate-400 dark:text-slate-500">Data & AI Systems</h3>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-5 lg:gap-6">
-                <TechItem icon="data_exploration" name="Python" />
-                <TechItem icon="precision_manufacturing" name="Machine Learning" />
-                <TechItem icon="psychology" name="Deep Learning" />
-                <TechItem icon="smart_toy" name="Generative AI" />
-                <TechItem icon="analytics" name="Pandas / NumPy" />
-                <TechItem icon="query_stats" name="Scikit-learn" />
-                <TechItem icon="auto_graph" name="TensorFlow" />
-                <TechItem icon="history_edu" name="LangChain" />
-              </div>
-            </div>
-          </div>
+          {/* Backend & Distributed Services */}
+          <TechItem iconComponent={PythonIcon} name="Python & FastAPI" shortName="Python & FastAPI" />
+          <TechItem iconComponent={NodejsIcon} name="Node.js & Express.js" shortName="Node & Express" />
+          <TechItem iconComponent={MicroservicesIcon} name="REST APIs & Microservices" shortName="REST & Services" />
+          <TechItem iconComponent={MessageQueueIcon} name="Message Queues & Streams" shortName="Message Queues" />
+          <TechItem iconComponent={WebSocketIcon} name="WebSocket (Real-Time)" shortName="WebSocket" tag="Forex CRM" />
+          <TechItem iconComponent={JWTIcon} name="JWT / OAuth & RBAC" shortName="JWT & RBAC" />
+          <TechItem iconComponent={PaymentGatewayIcon} name="Payment Gateways" shortName="Payments" tag="Saudi VAT" />
+          <TechItem iconComponent={ZodIcon} name="Zod Schema Validation" shortName="Zod Validation" />
 
-          <div className="tools-section flex flex-col items-center gap-6 md:gap-12 pt-10 border-t border-slate-200 dark:border-white/5 relative">
-            <div className="absolute top-[-1px] left-1/2 -translate-x-1/2 w-24 h-[1px] bg-primary"></div>
-            <h3 className="text-[10px] md:text-xs font-black uppercase tracking-[0.8em] text-slate-400">ECOSYSTEM_DATA</h3>
-            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8 lg:gap-10 px-4">
-              {["Git / GitHub", "Docker", "Figma", "AWS", "Postman", "Cloudinary"].map(tool => (
-                <span key={tool} className="px-5 md:px-8 py-2 md:py-3 rounded-xl glass dark:bg-white/[0.02] text-[9px] md:text-[11px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 transition-all hover:text-primary hover:border-primary/30 relative group overflow-hidden">
-                  <div className="absolute top-0 left-0 w-1 h-full bg-primary/20 group-hover:bg-primary transition-colors"></div>
-                  {tool}
-                </span>
-              ))}
-            </div>
-          </div>
+          {/* Frontend & UI Engineering */}
+          <TechItem iconComponent={TypeScriptIcon} name="TypeScript" />
+          <TechItem iconComponent={ReactIcon} name="React.js" />
+          <TechItem iconComponent={NextjsIcon} name="Next.js (App Router)" shortName="Next.js" />
+          <TechItem iconComponent={TailwindIcon} name="Tailwind CSS" />
+          <TechItem iconComponent={ShadcnIcon} name="shadcn/ui & Tokens" shortName="shadcn/ui" />
+          <TechItem iconComponent={PerformanceIcon} name="Performance Optimization" shortName="Performance" tag="90+ CWV" />
+          <TechItem iconComponent={ResponsiveIcon} name="Responsive Systems" shortName="Responsive" />
+          <TechItem iconComponent={ComponentIcon} name="Component Architecture" shortName="Architecture" />
+
+          {/* Databases & Storage */}
+          <TechItem iconComponent={PostgresIcon} name="PostgreSQL" />
+          <TechItem iconComponent={MongoIcon} name="MongoDB" />
+          <TechItem iconComponent={SupabaseIcon} name="Supabase (Row-Level Security)" shortName="Supabase (RLS)" tag="RLS" />
+          <TechItem iconComponent={SQLiteIcon} name="SQL & SQLite (Cache Layer)" shortName="SQLite Cache" />
+
+          {/* DevOps, Testing & CI/CD */}
+          <TechItem iconComponent={PlaywrightIcon} name="Playwright E2E Testing" shortName="Playwright E2E" tag="Automated" />
+          <TechItem iconComponent={PytestIcon} name="Pytest API Testing" shortName="Pytest API" tag="Automated" />
+          <TechItem iconComponent={JestIcon} name="Jest Unit Testing" shortName="Jest Testing" tag="60% Core" />
+          <TechItem iconComponent={DockerIcon} name="Docker & Containers" shortName="Docker" />
+          <TechItem iconComponent={KubernetesIcon} name="Kubernetes Orchestration" shortName="Kubernetes" />
+          <TechItem iconComponent={VercelIcon} name="Vercel CI/CD Pipelines" shortName="Vercel CI/CD" />
+          <TechItem iconComponent={GitIcon} name="Git & GitHub Versioning" shortName="Git & GitHub" />
+          <TechItem iconComponent={AgileIcon} name="Agile / Scrum Delivery" shortName="Agile / Scrum" />
         </div>
+
       </div>
     </div>
   );

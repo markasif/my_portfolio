@@ -1,0 +1,33 @@
+# Mohammed Asif - AI Engineer & Full Stack Developer
+
+> Mohammed Asif is an AI Engineer and Full Stack Developer specializing in autonomous multi-agent systems, Model Context Protocol (MCP), production RAG pipelines, and scalable modern web platforms.
+
+## Overview
+- **Name**: Mohammed Asif
+- **Role**: AI Engineer & Full Stack Developer
+- **Location**: Kerala, India
+- **Portfolio**: https://mohammedasif.dev/
+- **GitHub**: https://github.com/markasif
+- **LinkedIn**: https://www.linkedin.com/in/asifap/
+- **Telegram**: https://t.me/telmeasif
+- **Email**: apasif243@gmail.com
+- **Phone**: +91 9567526150
+
+## Core Competencies & Skills
+- **Agentic AI & LLMs**: Autonomous Multi-Agent Workflows, Model Context Protocol (MCP), LangChain, LangGraph, CrewAI, AutoGen, Prompt Engineering.
+- **RAG & Vector Search**: Hybrid Retrieval, Semantic Chunking, Qdrant, ChromaDB, pgvector, Knowledge Graphs, Re-ranking.
+- **Backend Architecture**: Python, FastAPI, Node.js, Express, PostgreSQL, Redis, REST APIs, WebSockets, Docker.
+- **Frontend & UI/UX**: TypeScript, React 19, Next.js, Tailwind CSS, GSAP, Responsive Design, WCAG 2.2 AA Accessibility.
+- **DevOps & Cloud**: CI/CD Pipelines, Docker, Vercel, Railway, AWS, Linux System Administration.
+
+## Featured Production Applications
+1. **NeoHireX AI Hiring OS**: Enterprise multi-agent recruitment platform with automated resume parsing, candidate scoring, and voice agent interviews.
+2. **AskRaggy Enterprise RAG Engine**: Production multimodal RAG search engine with sub-second retrieval, source attribution, and document chat.
+3. **GoodWell Wellness & Healthcare CRM**: HIPAA-compliant telemedicine platform with real-time health telemetry and patient appointment scheduling.
+4. **NeoIntelli Business Automation**: End-to-end CRM and workflow automation system integrated with custom Model Context Protocol (MCP) server tools.
+
+## Contact & Inquiry Actions
+- **Primary Inquiry Form**: https://mohammedasif.dev/#contact
+  - Accepts inquiries for AI & RAG Systems, Agentic AI & MCP, Full Stack Web, Real-Time CRM & Dashboards, and Custom Engineering.
+  - Direct WhatsApp channel: https://wa.me/919567526150
+

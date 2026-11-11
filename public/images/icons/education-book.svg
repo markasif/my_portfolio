@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Glowing Ambient Aura -->
+  <circle cx="60" cy="65" r="45" fill="url(#book-glow)" opacity="0.4" />
+  
+  <defs>
+    <radialGradient id="book-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="cover-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="page-left" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+    <linearGradient id="page-right" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#cbd5e1" />
+    </linearGradient>
+    <linearGradient id="page-accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="ribbon-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+
+  <!-- Open Book Base/Cover Shadow Layer -->
+  <path d="M12 78 C28 72 50 72 60 76 C70 72 92 72 108 78 L105 84 C89 78 69 78 60 82 C51 78 31 78 15 84 Z" fill="#030712" opacity="0.7" />
+  
+  <!-- Outer Leather / Tech Cover -->
+  <path d="M14 74 C30 68 50 68 60 72 C70 68 90 68 106 74 L106 78 C90 72 70 72 60 76 C50 72 30 72 14 78 Z" fill="url(#cover-grad)" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.4"/>
+
+  <!-- Thick Page Stack Depth Left -->
+  <path d="M15 70 C31 64 50 64 60 68 L60 72 C50 68 30 68 15 74 Z" fill="#64748b" opacity="0.6" />
+  <!-- Thick Page Stack Depth Right -->
+  <path d="M105 70 C89 64 70 64 60 68 L60 72 C70 68 90 68 105 74 Z" fill="#64748b" opacity="0.6" />
+
+  <!-- Main Open Pages (Curved 3D surface) -->
+  <!-- Left Page -->
+  <path d="M60 40 C48 35 28 36 16 42 L16 68 C28 62 48 61 60 66 Z" fill="url(#page-left)" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.6"/>
+  <!-- Right Page -->
+  <path d="M60 40 C72 35 92 36 104 42 L104 68 C92 62 72 61 60 66 Z" fill="url(#page-right)" stroke="#00f0ff" stroke-width="0.8" stroke-opacity="0.6"/>
+
+  <!-- Book Spine Center Joint -->
+  <line x1="60" y1="39" x2="60" y2="67" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Printed Text Lines Left Page (Cyber/Minimal Blueprint Style) -->
+  <line x1="24" y1="47" x2="52" y2="43" stroke="#0284c7" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="24" y1="52" x2="50" y2="48" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="24" y1="57" x2="48" y2="53" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="24" y1="62" x2="42" y2="58" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+
+  <!-- Printed Text Lines Right Page -->
+  <line x1="68" y1="43" x2="96" y2="47" stroke="#00f0ff" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.8"/>
+  <line x1="70" y1="48" x2="96" y2="52" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="72" y1="53" x2="96" y2="57" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+  <line x1="78" y1="58" x2="96" y2="62" stroke="#64748b" stroke-width="1.2" stroke-linecap="round" stroke-opacity="0.7"/>
+
+  <!-- Floating Holographic Graduation Cap / Star above Book -->
+  <g transform="translate(60, 24) scale(0.95)">
+    <!-- Cap Top Diamond -->
+    <path d="M0 -12 L16 -4 L0 4 L-16 -4 Z" fill="url(#cover-grad)" stroke="#00f0ff" stroke-width="1.5"/>
+    <path d="M0 -10 L13 -4 L0 2 L-13 -4 Z" fill="#00f0ff" fill-opacity="0.2"/>
+    <!-- Cap Skull Base -->
+    <path d="M-8 0 L-8 6 C-8 10 8 10 8 6 L8 0" fill="#0f172a" stroke="#00f0ff" stroke-width="1.2" stroke-opacity="0.8"/>
+    <!-- Tassel -->
+    <path d="M0 -4 L14 1 L15 11" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="15" cy="12" r="1.5" fill="#00f0ff"/>
+  </g>
+
+  <!-- Cyan Bookmark Ribbon hanging down from spine -->
+  <path d="M58 66 L58 84 L60 82 L62 84 L62 66 Z" fill="url(#ribbon-grad)"/>
+
+  <!-- Subtle pedestal line -->
+  <line x1="20" y1="88" x2="100" y2="88" stroke="#00f0ff" stroke-width="1.2" stroke-opacity="0.3" stroke-linecap="round"/>
+</svg>
+

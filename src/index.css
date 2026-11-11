@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    font-family: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* =============================================================================
+   About Section: Premium Botanical Framing (Asymmetrical Diagonal Leaves)
+   ============================================================================= */
+.about-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 620px;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 96px 24px 104px;
+}
+
+/* Central content - Primary visual hierarchy */
+.about-content {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  max-width: 760px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.about-eyebrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  color: #00e5eb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+}
+
+.about-eyebrow span {
+  height: 1px;
+  width: 36px;
+  background: linear-gradient(90deg, transparent, #00e5eb);
+}
+
+.about-eyebrow span:last-child {
+  transform: rotate(180deg);
+}
+
+.about-content h1,
+.about-content h2 {
+  color: #f8fafc;
+  font-size: clamp(42px, 6vw, 76px);
+  font-weight: 900;
+  letter-spacing: -2.5px;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.about-content h1 span,
+.about-content h2 span {
+  color: #00d9eb;
+}
+
+/* Subtle glowing cyan accent bar beneath heading */
+.about-accent-line {
+  width: 48px;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, #00d9eb, transparent);
+  box-shadow: 0 0 12px rgba(0, 217, 235, 0.7);
+  margin: 12px auto 26px;
+}
+
+.about-content p {
+  max-width: 680px;
+  margin: 0 auto;
+  color: #cbd5e1;
+  font-size: clamp(15px, 1.2vw, 18.5px);
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* Atmospheric subtle glows - Soft ambient depth behind foliage */
+.leaf-glow {
+  position: absolute;
+  z-index: 1;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(120px);
+  opacity: 0.16;
+  background: radial-gradient(circle, rgba(0, 225, 255, 0.28) 0%, transparent 70%);
+}
+
+.leaf-glow-top-left {
+  left: -80px;
+  top: -80px;
+}
+
+.leaf-glow-bottom-right {
+  right: -80px;
+  bottom: -80px;
+  background: radial-gradient(circle, rgba(0, 200, 255, 0.22) 0%, transparent 70%);
+}
+
+/* =============================================================================
+   REFINED TWO-LEAF BOTANICAL SYSTEM (Top-Left & Bottom-Right Framing)
+   ============================================================================= */
+
+/* Parallax outer wrappers */
+.leaf-parallax-wrapper {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform;
+}
+
+.leaf-parallax-top-left {
+  top: -20px;
+  left: -20px;
+  width: clamp(280px, 32vw, 440px);
+}
+
+.leaf-parallax-bottom-right {
+  bottom: -20px;
+  right: -20px;
+  width: clamp(280px, 32vw, 440px);
+}
+
+/* Stem anchor wrappers - rotation around true attachment point */
+.leaf-stem-top-left {
+  width: 100%;
+  transform-origin: 0% 0%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.leaf-stem-bottom-right {
+  width: 100%;
+  transform-origin: 100% 60%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Blade follow-through wrappers */
+.leaf-blade-follow {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+/* Photorealistic Botanical Leaf Images */
+.botanical-leaf-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 12px rgba(0, 240, 255, 0.12));
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .about-hero {
+    min-height: 580px;
+    padding: 85px 20px 95px;
+  }
+
+  .leaf-parallax-top-left {
+    top: -30px;
+    left: -30px;
+    width: clamp(210px, 26vw, 300px);
+  }
+
+  .leaf-parallax-bottom-right {
+    bottom: -30px;
+    right: -30px;
+    width: clamp(210px, 26vw, 300px);
+  }
+}
+
+/* Mobile adjustments - Subdued ambient presence, zero text interference */
+@media (max-width: 640px) {
+  .about-hero {
+    min-height: auto;
+    padding: 60px 18px 75px;
+    overflow: hidden;
+  }
+
+  .leaf-parallax-top-left {
+    top: -10px;
+    left: -12px;
+    width: clamp(110px, 28vw, 135px);
+    opacity: 0.85;
+  }
+
+  .leaf-parallax-bottom-right {
+    bottom: 12px;
+    right: -12px;
+    width: clamp(110px, 28vw, 135px);
+    opacity: 0.85;
+  }
+
+  .botanical-leaf-photo {
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.7));
+  }
+
+  /* Remove top eyebrow text completely from mobile */
+  .about-eyebrow {
+    display: none !important;
+  }
+
+  /* Heading size reduced by half on mobile */
+  .about-content h1 {
+    font-size: 24px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+  }
+
+  /* Scaled down cyan accent bar */
+  .about-accent-line {
+    width: 32px;
+    height: 2px;
+    margin: 8px auto 14px;
+  }
+
+  /* Description size reduced proportionally by half on mobile */
+  .about-content p {
+    font-size: 12.5px;
+    line-height: 1.6;
+    max-width: 330px;
+    margin: 0 auto;
+    color: #cbd5e1;
+  }
+}

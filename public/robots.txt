@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Explicit AI Agent & Web Scraping Bot Permissions (Agentic Web 4/4)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Agentic Knowledge Bases (llmstxt.org)
+# Location of llms.txt: https://mohammedasif.dev/llms.txt
+# Location of llms-full.txt: https://mohammedasif.dev/llms-full.txt
+
+Sitemap: https://mohammedasif.dev/sitemap.xml
+

@@ -3,64 +3,117 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mohammed Asif - Full-Stack Developer & Data Scientist</title>
-    <meta name="description" content="Portfolio of Mohammed Asif, a Full-Stack Developer and Data Science Enthusiast. Delivering smart solutions with AI and precision." />
+    <title>Mohammed Asif | AI Engineer & Full Stack Developer</title>
+    <meta name="description" content="Portfolio of Mohammed Asif, an AI Engineer and Full Stack Developer building autonomous multi-agent systems, custom MCP tools, and production RAG pipelines, backed by 10+ production applications." />
+    <meta name="author" content="Mohammed Asif" />
+    <meta name="keywords" content="AI Engineer, Full Stack Developer, RAG, Multi-Agent Systems, MCP, LangChain, Python, React, Next.js, FastAPI" />
+    <meta name="theme-color" content="#050814" />
+    <link rel="canonical" href="https://mohammedasif.dev/" />
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
-    <!-- GSAP & Plugins -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-    
-    <!-- Lenis Smooth Scroll -->
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    
-    <script>
-      // Register GSAP Plugins
-      gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
 
-      // Initialize Lenis
-      document.addEventListener('DOMContentLoaded', () => {
-        const lenis = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          orientation: 'vertical',
-          gestureOrientation: 'vertical',
-          smoothWheel: true,
-          wheelMultiplier: 1,
-          smoothTouch: true,
-          touchMultiplier: 2, // Enhanced swipe responsiveness
-          lerp: 0.1, // High-fidelity inertia
-          infinite: false,
-        });
+    <!-- Open Graph / Facebook / LinkedIn / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mohammedasif.dev/" />
+    <meta property="og:site_name" content="Mohammed Asif Portfolio" />
+    <meta property="og:title" content="Mohammed Asif | AI Engineer & Full Stack Developer" />
+    <meta property="og:description" content="AI Engineer and Full Stack Developer specializing in autonomous multi-agent systems, custom MCP tools, and production RAG pipelines." />
+    <meta property="og:image" content="https://mohammedasif.dev/images/neointelli.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-        function raf(time) {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mohammed Asif | AI Engineer & Full Stack Developer" />
+    <meta name="twitter:description" content="AI Engineer and Full Stack Developer building enterprise agentic systems and scalable web platforms." />
+    <meta name="twitter:image" content="https://mohammedasif.dev/images/neointelli.webp" />
+
+    <!-- Schema.org JSON-LD Structured Data for Search & AI Agents -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ProfilePage",
+          "@id": "https://mohammedasif.dev/#webpage",
+          "url": "https://mohammedasif.dev/",
+          "name": "Mohammed Asif | AI Engineer & Full Stack Developer",
+          "description": "Portfolio of Mohammed Asif, an AI Engineer building autonomous multi-agent systems, custom MCP tools, and production RAG pipelines.",
+          "mainEntity": { "@id": "https://mohammedasif.dev/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://mohammedasif.dev/#person",
+          "name": "Mohammed Asif",
+          "jobTitle": "AI Engineer & Full Stack Developer",
+          "url": "https://mohammedasif.dev/",
+          "email": "apasif243@gmail.com",
+          "telephone": "+919567526150",
+          "image": "https://mohammedasif.dev/images/neointelli.webp",
+          "sameAs": [
+            "https://github.com/markasif",
+            "https://www.linkedin.com/in/asifap/",
+            "https://t.me/telmeasif",
+            "https://wa.me/919567526150"
+          ],
+          "knowsAbout": [
+            "Agentic AI",
+            "Autonomous Multi-Agent Systems",
+            "Model Context Protocol (MCP)",
+            "Retrieval-Augmented Generation (RAG)",
+            "Python",
+            "FastAPI",
+            "React.js",
+            "TypeScript",
+            "Next.js",
+            "Node.js",
+            "Docker"
+          ],
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+919567526150",
+            "contactType": "professional inquiry",
+            "availableLanguage": ["English", "Malayalam", "Hindi"]
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://mohammedasif.dev/#website",
+          "url": "https://mohammedasif.dev/",
+          "name": "Mohammed Asif - Portfolio",
+          "publisher": { "@id": "https://mohammedasif.dev/#person" }
         }
-
-        requestAnimationFrame(raf);
-        
-        // Connect Lenis to ScrollTrigger
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => {
-          lenis.raf(time * 1000);
-        });
-        gsap.ticker.lagSmoothing(0);
-      });
+      ]
+    }
     </script>
     
+    <!-- Agentic AI Discovery & LLMs.txt Standards -->
+    <link rel="llms-txt" href="/llms.txt" />
+    <link rel="alternate" type="text/markdown" href="/llms.txt" title="AI Agent Context" />
+    <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full AI Agent Knowledge Base" />
+
+    <!-- Critical LCP Hero Image Preload -->
+    <link rel="preload" as="image" href="/images/me/ezgif-frame-001.webp" fetchpriority="high" type="image/webp" />
+
+    <!-- Google Fonts (Non-Render-Blocking Asynchronous Loading) -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;500;600;700&display=swap" />
+    </noscript>
+
     <style>
       /* Fail-safe: ensure content is visible if JS fails */
       .gsap-reveal { opacity: 0; }
       .no-js .gsap-reveal { opacity: 1 !important; transform: none !important; }
-      /* Global hide for content before GSAP loads */
       .opacity-0 { opacity: 0; }
       .no-js .opacity-0 { opacity: 1 !important; }
 
-      /* Noise Texture Overlay */
+      /* Lightweight CSS Hardware-Accelerated Noise / Grid */
       .noise-bg::before {
         content: "";
         position: fixed;
@@ -68,91 +121,14 @@
         left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0.02;
+        opacity: 0.015;
         pointer-events: none;
         z-index: 50;
-        background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" /%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" /%3E%3C/svg%3E');
+        background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+        background-size: 24px 24px;
+        transform: translateZ(0);
       }
-    </style>
-    <script>document.documentElement.classList.remove('no-js');</script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    
-    <!-- Custom Tailwind Config -->
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary": {
-                DEFAULT: "#00F0FF", // Cyberpunk Neon Cyan
-                50: "#e0fcff",
-                100: "#b3f8ff",
-                200: "#80f3ff",
-                300: "#4df0ff",
-                400: "#26ecff",
-                500: "#00f0ff", // Core
-                600: "#00d0e6",
-                700: "#00a5b8",
-                800: "#007d8f",
-                900: "#005a66",
-                950: "#003b42",
-              },
-              // Map legacy variables to the new unified primary to avoid breaking existing classes instantly,
-              // but keeping the color tone consistent across the entire site.
-              "indigo-vibrant": "#00F0FF",
-              "cyan-vibrant": "#00F0FF",
-              "accent-vibrant": "#00F0FF",
-              "background-light": "#F8FAFC",
-              "background-dark": "#050814",
-            },
-            fontFamily: {
-              "display": ["'Space Grotesk'", "sans-serif"],
-              "sans": ["Inter", "sans-serif"]
-            },
-            borderRadius: {
-              "DEFAULT": "0.5rem",
-              "lg": "0.75rem",
-              "xl": "1rem",
-              "2xl": "1.5rem",
-              "3xl": "2rem",
-              "full": "9999px"
-            },
-            backdropBlur: {
-              xs: '2px',
-              '2xl': '40px',
-            },
-            animation: {
-              'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-              'float': 'float 3s ease-in-out infinite',
-              'spin-slow': 'spin 12s linear infinite',
-              'reverse-spin-slow': 'reverse-spin 15s linear infinite',
-            },
-            keyframes: {
-              scanline: {
-                '0%': { top: '-10%' },
-                '100%': { top: '110%' }
-              },
-              float: {
-                '0%, 100%': { transform: 'translateY(0)' },
-                '50%': { transform: 'translateY(-10px)' },
-              },
-              'reverse-spin': {
-                from: { transform: 'rotate(360deg)' },
-                to: { transform: 'rotate(0deg)' },
-              }
-            }
-          },
-        },
-      }
-    </script>
-    
-    <style>
+
       .glass {
         background: rgba(255, 255, 255, 0.03);
         backdrop-filter: blur(12px);
@@ -166,11 +142,13 @@
         position: fixed !important;
         width: 100% !important;
       }
+
       .glass-card {
         background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255,255,255,0.1);
       }
+
       .text-gradient {
         background: linear-gradient(135deg, #00F0FF 0%, #00d0e6 100%);
         -webkit-background-clip: text;
@@ -180,35 +158,34 @@
         animation: gradient-flow 5s linear infinite;
         text-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
       }
+
       @keyframes gradient-flow {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
       }
+
       .glow-on-hover:hover {
         box-shadow: 0 0 30px rgba(14, 165, 233, 0.25);
       }
+
       .material-symbols-outlined {
         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
-      /* Smooth scrolling for anchor links */
+
       html {
         scroll-behavior: auto; /* Handled by Lenis */
       }
-      body {
-        cursor: crosshair; /* Consistent with the custom cursor feel */
+
+      /* Apply custom crosshair only on desktop devices with fine pointers */
+      @media (pointer: fine) {
+        body {
+          cursor: crosshair;
+        }
       }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
-  }
-}
-</script>
-</head>
+    <script>document.documentElement.classList.remove('no-js');</script>
+  </head>
   <body class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased noise-bg">
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>

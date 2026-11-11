@@ -1,4 +1,7 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import Button from './Button';
+import SectionHeader from './SectionHeader';
+import { gsap, ScrollTrigger } from '../lib/gsap';
 
 interface Project {
   title: string;
@@ -6,64 +9,101 @@ interface Project {
   desc: string;
   tags: string[];
   link: string;
-  image: string;
-  type: 'Static' | 'Dynamic';
-  specialFeature?: string;
+  image?: string;
+  type: 'Dynamic' | 'Static' | 'AI / Agentic';
+  featured?: boolean;
+  metrics?: string;
+  github?: string;
 }
 
-const ProjectCard: React.FC<Project> = ({ title, category, desc, tags, link, image, type }) => {
+const ProjectCard: React.FC<Project> = ({
+  title,
+  category,
+  desc,
+  link,
+  image,
+  type
+}) => {
   return (
-    <div className="project-card relative flex flex-col bg-white/[0.02] rounded-[2rem] overflow-hidden border border-white/5 transition-all duration-500 backdrop-blur-2xl hover:bg-white/[0.04]">
-      {/* Visual Header (Image Container) */}
-      <div className="relative aspect-[16/9] overflow-hidden rounded-t-[2rem] border-b border-white/5 shadow-2xl">
-         <div 
-           className="absolute inset-0 bg-cover bg-center transition-transform duration-700 hover:scale-105" 
-           style={{ backgroundImage: `url("${image}")` }} 
-         />
-         <div className="absolute inset-0 bg-gradient-to-t from-[#050814]/90 via-[#050814]/20 to-transparent"></div>
-         
-         {/* Simple Action Label */}
-         <div className="absolute top-4 right-4">
-            <div className="px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[7px] font-black uppercase tracking-widest text-[#00F0FF]">
-              {type}
-            </div>
-         </div>
-      </div>
-
-      {/* Content Section */}
-      <div className="flex flex-col flex-1 px-4 py-1 md:px-8 md:py-4 gap-2">
-        <div className="flex flex-col gap-1">
-          <span className="text-[10px] font-black text-[#00F0FF]/60 uppercase tracking-[0.4em]">
-            {category}
-          </span>
-          <h3 className="text-xl md:text-2xl font-black text-white font-display uppercase italic tracking-tight leading-none pt-1">
-            {title}
-          </h3>
-        </div>
-
-        <p className="text-xs md:text-sm text-slate-400 font-light leading-relaxed line-clamp-2">
-          {desc}
-        </p>
-
-        <div className="mt-auto pt-4 flex flex-col gap-6">
-          <div className="flex flex-wrap gap-2">
-            {tags.map((tag, i) => (
-              <span key={i} className="px-3 py-1.5 text-[8px] font-bold text-white/40 bg-white/5 rounded-lg border border-white/5 uppercase tracking-wider">
-                {tag}
-              </span>
-            ))}
+    <div
+      role="link"
+      tabIndex={0}
+      aria-label={`View project details for ${title}`}
+      onClick={() => window.open(link, '_blank', 'noopener,noreferrer')}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          window.open(link, '_blank', 'noopener,noreferrer');
+        }
+      }}
+      className="project-card group relative flex flex-col sm:flex-row bg-transparent rounded-2xl md:rounded-3xl overflow-hidden hover:bg-white/[0.02] transition-all duration-500 backdrop-blur-sm hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(0,0,0,0.6)] cursor-pointer min-h-[220px] md:min-h-[240px] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+    >
+      {/* Left Half: Text Content */}
+      <div className="w-full sm:w-1/2 flex flex-col justify-between p-4 md:p-6 gap-2 md:gap-3 z-10">
+        <div className="flex flex-col gap-2">
+          {/* Heading Area - Full width space used by heading */}
+          <div className="flex flex-col gap-0.5 w-full pb-1">
+            <h3 className="text-sm md:text-base font-black uppercase tracking-wider text-white group-hover:text-primary transition-colors leading-snug">
+              {title}
+            </h3>
+            <span className="text-[9px] font-mono font-semibold uppercase tracking-widest text-primary/80 truncate">
+              {category}
+            </span>
           </div>
 
-          <a
+          {/* Description */}
+          <p className="text-xs md:text-[13px] text-slate-300 font-normal leading-relaxed line-clamp-3">
+            {desc}
+          </p>
+        </div>
+
+        {/* Action Link: Secondary Button Look + Transparent Tag on bottom line */}
+        <div className="flex items-center justify-between gap-3 pt-2 mt-auto">
+          <Button
+            variant="secondary"
+            size="sm"
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-center justify-center gap-3 w-full py-3.5 px-6 rounded-xl border border-[#00F0FF]/20 text-[#00F0FF] text-[9px] font-black uppercase tracking-[0.3em] transition-all hover:bg-[#00F0FF]/10 hover:border-[#00F0FF]/40 active:scale-95"
+            onClick={(e?: React.MouseEvent) => e?.stopPropagation()}
+            className="w-fit shadow-md"
           >
-            <span>Explore Project</span>
-            <span className="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
+            {link.includes('github') ? 'View Source' : 'Live Demo'}
+          </Button>
+
+          {/* Transparent tag on bottom line with shorter text */}
+          <span className="text-[9px] md:text-[10px] font-mono font-semibold uppercase tracking-widest text-primary/70 bg-transparent shrink-0">
+            <span className="sm:hidden">{type === 'AI / Agentic' ? 'Agentic' : type}</span>
+            <span className="hidden sm:inline">{type}</span>
+          </span>
         </div>
+      </div>
+
+      {/* Right Half: Seamless background, no vertical dividing line, image aligned towards the left */}
+      <div className="w-full sm:w-1/2 relative flex items-center justify-start p-3 sm:p-4 min-h-[200px] overflow-hidden bg-transparent">
+        {image ? (
+          <img
+            src={image}
+            alt={title}
+            width="600"
+            height="340"
+            decoding="async"
+            className="w-full h-full max-h-[220px] object-contain object-left transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_8px_25px_rgba(0,0,0,0.5)]"
+            loading="lazy"
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center p-6 w-full">
+            <svg className="size-8 text-primary/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 8V4H8" />
+              <rect width="16" height="12" x="4" y="8" rx="2" />
+              <path d="M2 14h2" />
+              <path d="M20 14h2" />
+              <path d="M15 13v2" />
+              <path d="M9 13v2" />
+            </svg>
+            <span className="text-[10px] font-mono text-primary/80 uppercase tracking-widest mt-2">{category}</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -72,37 +112,102 @@ const ProjectCard: React.FC<Project> = ({ title, category, desc, tags, link, ima
 const Projects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const projects: Project[] = [
+  const allProjects: Project[] = [
+    // --- 1. Featured CV Projects ---
     {
-      title: "Zyvest",
-      category: "Fintech",
-      desc: "Enterprise fintech ecosystem for forex trading with secure multi-currency wallets and real-time PAMM account management.",
-      tags: ["React", "API", "Fintech"],
-      link: "https://zyvest.com/",
-      image: "/images/zyvest.webp",
-      type: "Dynamic"
+      title: "AskRaggy AI — Knowledge & HR Assistant",
+      category: "Enterprise RAG & Agentic AI",
+      desc: "Chat, document Q&A and agent modes with multi-step planning and HR workflows (leave, expenses, directory); streamed responses cut chat response time from 8–10s to 2–3s, with a SQLite backup layer for Supabase for faster data access.",
+      tags: ["Python", "RAG", "CAG", "Vector Search", "Groq API", "Streaming", "SQLite", "Supabase"],
+      link: "https://ai-engineering-learning-asea.onrender.com/",
+      image: "/images/askraggy.webp",
+      type: "AI / Agentic",
+      featured: true,
+      metrics: "Live Demo · Latency 8–10s → 2–3s",
+      github: "https://github.com/markasif/ai-engineering-learning"
     },
     {
-      title: "WFSK World",
-      category: "Federation",
-      desc: "Global Karate Federation hub with custom administration and integrated Supabase real-time data sync.",
-      tags: ["Supabase", "CDN", "Admin"],
+      title: "NeoHireX — Cognitive AI Hiring OS",
+      category: "AI Recruitment & Computer Vision",
+      desc: "Cognitive AI Hiring OS combining AI interviews, recruiter intelligence, job-creation-to-approval workflows, and YOLO-based computer-vision monitoring in the AI interview module. Test automation owned with Playwright and pytest.",
+      tags: ["YOLO Vision", "Playwright E2E", "Pytest", "Python", "AI Interviews", "FastAPI"],
+      link: "https://neointelli.com/",
+      image: "/images/neohirex.webp",
+      type: "AI / Agentic",
+      featured: true,
+      metrics: "Automated regression 1.5 hrs → 10 min",
+      github: "https://github.com/markasif"
+    },
+    {
+      title: "Neointelli — Enterprise Web Platform",
+      category: "Enterprise Redesign & Architecture",
+      desc: "Redesigned and deployed the Neointelli company web platform from scratch with a modern component-based frontend architecture, high-fidelity responsive design, and optimized Core Web Vitals.",
+      tags: ["React.js", "Next.js", "Tailwind CSS", "TypeScript", "Component Architecture", "CWV"],
+      link: "https://neointelli.com/",
+      image: "/images/neointelli.webp",
+      type: "Dynamic",
+      featured: true,
+      metrics: "Complete Redesign From Scratch",
+      github: "https://github.com/markasif"
+    },
+    {
+      title: "Forex Trading CRM & Dashboard",
+      category: "Fintech & Real-Time CRM",
+      desc: "Real-time RBAC trading dashboards with live WebSocket sync and Jest/Zod-hardened APIs (0% → 60% core coverage). Mobile LCP 4.1s → 3.1s with zero role-access bugs post-launch via JWT-validated RBAC middleware.",
+      tags: ["Node.js", "Express.js", "Next.js", "WebSocket", "MongoDB", "PostgreSQL", "TypeScript"],
+      link: "https://zyvest.com/",
+      image: "/images/zyvest.webp",
+      type: "Dynamic",
+      featured: true,
+      metrics: "LCP 4.1s → 3.1s · Live WebSocket",
+      github: "https://github.com/markasif"
+    },
+    {
+      title: "Goodwell Coffee — E-Commerce Platform",
+      category: "E-Commerce & Payment Gateways",
+      desc: "Live Saudi e-commerce platform with online payment integration, Saudi VAT-compliant calculation and automated invoicing, used in daily commercial operations.",
+      tags: ["Next.js", "E-Commerce", "Saudi VAT", "Payment Gateways", "Invoicing"],
+      link: "https://goodwellcoffee.com/",
+      image: "/images/goodwell.webp",
+      type: "Dynamic",
+      featured: true,
+      metrics: "Live Saudi Platform · VAT Compliant",
+      github: "https://github.com/markasif"
+    },
+    {
+      title: "Depro Trading & WFSK Federation",
+      category: "Enterprise CMS & SaaS",
+      desc: "Admin-managed CMS/SaaS sites: zero developer intervention post-launch, 90+ mobile PageSpeed, and typed components that cut new-feature build time by ~40% with Supabase Row-Level Security.",
+      tags: ["Next.js", "Tailwind CSS", "Supabase (RLS)", "Cloudinary", "TypeScript"],
+      link: "https://wfsk-world-federation-of-shotokan-k.vercel.app/",
+      image: "/images/depro.webp",
+      type: "Dynamic",
+      featured: true,
+      metrics: "90+ PageSpeed · 0 dev intervention",
+      github: "https://github.com/markasif"
+    },
+    {
+      title: "WFSK Karate World Federation",
+      category: "Global Federation Hub",
+      desc: "Global Karate Federation hub with custom administration and integrated Supabase real-time data sync with granular role-level security.",
+      tags: ["Next.js", "Supabase", "Cloudinary", "TypeScript"],
       link: "https://wfsk-world-federation-of-shotokan-k.vercel.app/",
       image: "/images/wfsk.webp",
       type: "Dynamic"
     },
+    // --- 2. Additional Production Client Projects ---
     {
-      title: "Depro Trading",
-      category: "Hardware",
-      desc: "Industrial-grade B2B procurement platform for cross-border supply chain and enterprise hardware catalog management.",
-      tags: ["B2B", "Industrial", "ERP"],
-      link: "#",
-      image: "/images/depro.webp",
-      type: "Dynamic"
+      title: "Dive to AI",
+      category: "AI Research & Learning",
+      desc: "Next.js-powered educational frontier dedicated to AI/ML research and futuristic technical service delivery.",
+      tags: ["Next.js", "AI", "ML", "Education"],
+      link: "https://www.diveto.ai",
+      image: "/images/DivetoAi.webp",
+      type: "Static"
     },
     {
       title: "Suryakiran Physio",
-      category: "Healthcare",
+      category: "Healthcare Portal",
       desc: "Specialized physiotherapy clinic portal with patient appointment systems and search-optimized service catalogs.",
       tags: ["React", "SEO", "Healthcare"],
       link: "https://www.suryakiranphysio.com/",
@@ -111,7 +216,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "Dayoff Journeys",
-      category: "Travel",
+      category: "Travel Tech",
       desc: "Immersive travel-tech platform with high-fidelity motion transitions for global curated destination storytelling.",
       tags: ["Motion", "UX", "Travel"],
       link: "http://www.dayoffjourneys.com/",
@@ -120,7 +225,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "Form and Field",
-      category: "Education",
+      category: "Education Portal",
       desc: "Modern institutional portal for academic resource management and efficient faculty-student collaboration.",
       tags: ["Vite", "Academic", "Portal"],
       link: "https://www.formandfieldedu.in/",
@@ -128,17 +233,8 @@ const Projects: React.FC = () => {
       type: "Static"
     },
     {
-      title: "Dive to AI",
-      category: "AI Service",
-      desc: "Next.js-powered educational frontier dedicated to AI/ML research and futuristic technical service delivery.",
-      tags: ["Next.js", "AI", "ML"],
-      link: "https://www.diveto.ai",
-      image: "/images/DivetoAi.webp",
-      type: "Static"
-    },
-    {
       title: "Sevana Medicals",
-      category: "Pharmacy",
+      category: "Pharmaceutical B2B",
       desc: "Efficient pharmaceutical B2B catalog system for medical professionals to manage localized pharmaceutical inventory.",
       tags: ["React", "Inventory", "B2B"],
       link: "https://new-sevana-medicals.vercel.app/",
@@ -147,7 +243,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "Chamayam",
-      category: "Fashion",
+      category: "Fashion & Heritage",
       desc: "Digital heritage textile catalog featuring high-resolution craftsmanship galleries and categorize fabric collections.",
       tags: ["Fashion", "Vite", "Catalog"],
       link: "https://chamayam-mtj6.vercel.app/",
@@ -156,16 +252,16 @@ const Projects: React.FC = () => {
     },
     {
       title: "Echo Hearing",
-      category: "Healthcare",
+      category: "Healthcare Services",
       desc: "Professional consultation portal for hearing aid services with specialized SEO and accessibility features.",
-      tags: ["SEO", "Accessibiity", "Health"],
+      tags: ["SEO", "Accessibility", "Health"],
       link: "https://www.echohearingaid.com/",
       image: "/images/echohearing.webp",
       type: "Static"
     },
     {
       title: "GNOM",
-      category: "Security",
+      category: "Security & Electrical",
       desc: "Integrated technical portal for advanced electrical systems and professional-tier industrial security solutions.",
       tags: ["Security", "Electrical", "System"],
       link: "https://depro-trading-s5zp.vercel.app/",
@@ -174,7 +270,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "Ammayi Thakkaram",
-      category: "Culinary",
+      category: "Culinary & Dining",
       desc: "Traditional restaurant platform featuring immersive menu storytelling and digital dining experiences.",
       tags: ["React", "Food-Tech", "UX"],
       link: "https://ammayi-thakkaram.vercel.app/",
@@ -183,7 +279,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "BS PAI",
-      category: "Retail",
+      category: "Industrial Wholesale",
       desc: "Robust commercial marketplace for professional-tier retail and wholesale building construction materials.",
       tags: ["Business", "Retail", "Supplies"],
       link: "https://bs-pai.vercel.app/",
@@ -192,7 +288,7 @@ const Projects: React.FC = () => {
     },
     {
       title: "Crafi Innovations",
-      category: "Creative",
+      category: "Artisanal E-Commerce",
       desc: "Artisanal e-commerce environment merging artist portfolios with functional marketplace for creative art craft.",
       tags: ["Creative", "E-commerce", "Store"],
       link: "https://crafi-innovations.vercel.app/",
@@ -201,95 +297,120 @@ const Projects: React.FC = () => {
     }
   ];
 
-  const [visibleCount, setVisibleCount] = React.useState(6);
-  const hasMore = visibleCount < projects.length;
-  const handleLoadMore = () => setVisibleCount(projects.length);
+  const filteredProjects = allProjects;
 
-  useLayoutEffect(() => {
-    const gsap = (window as any).gsap;
-    if (!gsap) return;
+  const [visibleCount, setVisibleCount] = useState(6);
+  const prevCountRef = useRef(6);
+  const hasMore = visibleCount < filteredProjects.length;
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.projects-header',
-        { y: 60, opacity: 0 },
-        {
-          y: 0, opacity: 1,
-          duration: 1.2,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: '.projects-header',
-            start: "top 90%",
+  const handleLoadMore = () => {
+    prevCountRef.current = visibleCount;
+    setVisibleCount(filteredProjects.length);
+  };
+
+  // Dropdown slide-in animation for newly loaded cards
+  useEffect(() => {
+    if (visibleCount > prevCountRef.current) {
+      const cards = document.querySelectorAll('.projects-grid .project-card');
+      const newlyRevealed = Array.from(cards).slice(prevCountRef.current);
+
+      if (newlyRevealed.length > 0) {
+        gsap.fromTo(newlyRevealed,
+          { y: -35, opacity: 0, scale: 0.96 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            stagger: 0.08,
+            ease: "power3.out",
+            onComplete: () => {
+              ScrollTrigger.refresh();
+            }
           }
-        }
-      );
+        );
+      }
+    }
+  }, [visibleCount]);
 
-      gsap.fromTo('.project-card',
-        { y: 80, opacity: 0, scale: 0.95 },
-        {
-          y: 0, opacity: 1, scale: 1,
-          duration: 1,
-          stagger: 0.15,
-          ease: "expo.out",
-          scrollTrigger: {
-            trigger: '.projects-grid',
-            start: "top 80%",
-          }
-        }
-      );
-    }, containerRef);
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
 
-    return () => ctx.revert();
+    const grid = container.querySelector('.projects-grid');
+    if (!grid) return;
+
+    const cards = grid.querySelectorAll('.project-card');
+
+    // Set initial hidden state so cards are hidden before user reaches Projects
+    gsap.set(cards, {
+      y: 50,
+      opacity: 0,
+      scale: 0.95,
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          // Unobserve immediately: plays ONCE on reach, never replays on scroll back
+          observer.unobserve(entry.target);
+
+          gsap.to(cards, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.65,
+            stagger: 0.08,
+            ease: "power2.out",
+          });
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px',
+      }
+    );
+
+    observer.observe(grid);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div id="projects" ref={containerRef} className="relative flex h-auto w-full flex-col bg-transparent py-6 md:py-8 lg:py-10 xl:py-12 px-6 md:px-8 lg:px-12 overflow-hidden">
+    <div id="projects" ref={containerRef} className="relative flex h-auto w-full flex-col bg-transparent py-8 md:py-10 lg:py-12 xl:py-14 px-6 md:px-8 overflow-hidden">
 
-      <div className="w-full max-w-7xl mx-auto flex flex-col gap-10 md:gap-14 lg:gap-16 relative z-10">
-        <div className="projects-header flex flex-col items-start gap-4 border-l-4 border-primary pl-6">
-          <div className="flex items-center gap-4">
-            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-primary">PROJECT SHOWCASE</span>
-            <div className="h-[1px] w-12 bg-primary/20"></div>
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900 dark:text-white font-display">
-            Selected Works
-          </h2>
-          <p className="max-w-2xl text-base md:text-lg text-slate-500 dark:text-slate-400 font-light leading-relaxed">
-            A curated collection of scalable architectures and digital products built with modern frameworks. Every project represents a technical challenge solved through robust engineering.
-          </p>
-          <div className="flex items-center gap-4 px-5 py-3 rounded-2xl bg-slate-100/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[9px] font-black uppercase tracking-[0.2em] backdrop-blur-md">
-            <div className="flex items-center gap-2">
-               <div className="size-1.5 rounded-full bg-slate-400 opacity-40"></div>
-               <span className="text-slate-500 dark:text-slate-400">Static</span>
-            </div>
-            <div className="h-3 w-[1px] bg-slate-200 dark:bg-white/10"></div>
-            <div className="flex items-center gap-2">
-               <div className="size-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.3)]"></div>
-               <span className="text-slate-900 dark:text-white">Dynamic</span>
-            </div>
-          </div>
-        </div>
+      <div className="w-full max-w-7xl mx-auto flex flex-col gap-6 md:gap-8 lg:gap-10 relative z-10">
 
-        <div className="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
-          {projects.slice(0, visibleCount).map((p, idx) => (
+        {/* Section Header */}
+        <SectionHeader
+          className="projects-header"
+          badge="PORTFOLIO & PRODUCTION WORK"
+          title={<>Featured <span className="text-primary">Projects</span></>}
+          description="Showcasing enterprise RAG assistants, agentic SDLC platforms, real-time trading CRMs, and 10+ production applications."
+        />
+
+        {/* Projects Grid - 2 columns for horizontal cards */}
+        <div className="projects-grid grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+          {filteredProjects.slice(0, visibleCount).map((p, idx) => (
             <ProjectCard key={idx} {...p} />
           ))}
         </div>
 
+        {/* Load More Button - Standardized Global Pill (slightly reduced on mobile) */}
         {hasMore && (
           <div className="flex justify-center">
-            <button 
+            <Button
+              variant="primary"
               onClick={handleLoadMore}
-              className="group relative flex items-center gap-5 px-12 py-5 rounded-2xl bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 text-[10px] font-black uppercase tracking-[0.5em] text-slate-900 dark:text-white/60 transition-all hover:text-primary hover:border-primary/40 hover:shadow-[0_20px_50px_rgba(0,240,255,0.1)] overflow-hidden"
+              arrowDirection="down"
+              className="min-w-[195px] sm:min-w-[240px]"
             >
-              <span className="relative z-10">Load More Project</span>
-              <div className="relative size-5 flex items-center justify-center z-10">
-                 <span className="material-symbols-outlined text-lg transition-transform duration-700 group-hover:rotate-180">sync</span>
-                 <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-            </button>
+              View All Projects ({filteredProjects.length})
+            </Button>
           </div>
         )}
+
       </div>
     </div>
   );

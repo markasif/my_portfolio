@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Glowing Ambient Aura -->
+  <circle cx="60" cy="65" r="45" fill="url(#building-glow)" opacity="0.4" />
+  
+  <defs>
+    <radialGradient id="building-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="tower-front" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="tower-side" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="tower-main-front" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="tower-main-side" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="glass-cyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#00f0ff" stop-opacity="0.4" />
+    </linearGradient>
+    <linearGradient id="roof-light" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f0ff" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+
+  <!-- Left Secondary Building -->
+  <path d="M22 55 L38 46 L38 102 L22 102 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4"/>
+  <path d="M38 46 L50 52 L50 102 L38 102 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.3"/>
+  <!-- Windows Left Building -->
+  <rect x="25" y="58" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.6"/>
+  <rect x="31" y="58" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.2"/>
+  <rect x="25" y="68" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.3"/>
+  <rect x="31" y="68" width="4" height="6" rx="1" fill="#00f0ff" fill-opacity="0.8"/>
+  <rect x="25" y="78" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.4"/>
+  <rect x="31" y="78" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.3"/>
+  <rect x="25" y="88" width="4" height="6" rx="1" fill="#00f0ff" fill-opacity="0.7"/>
+  <rect x="31" y="88" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.2"/>
+
+  <!-- Right Secondary Tower -->
+  <path d="M72 48 L88 40 L88 102 L72 102 Z" fill="#1e293b" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.4"/>
+  <path d="M88 40 L100 46 L100 102 L88 102 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="0.8" stroke-opacity="0.3"/>
+  <!-- Windows Right Building -->
+  <rect x="75" y="52" width="4" height="6" rx="1" fill="#00f0ff" fill-opacity="0.7"/>
+  <rect x="81" y="52" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.3"/>
+  <rect x="75" y="62" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.2"/>
+  <rect x="81" y="62" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.5"/>
+  <rect x="75" y="72" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.4"/>
+  <rect x="81" y="72" width="4" height="6" rx="1" fill="#00f0ff" fill-opacity="0.8"/>
+  <rect x="75" y="82" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.2"/>
+  <rect x="81" y="82" width="4" height="6" rx="1" fill="#38bdf8" fill-opacity="0.6"/>
+
+  <!-- Main Center Skyscraper (Hero Tower) -->
+  <!-- Back Base -->
+  <path d="M42 28 L62 16 L80 25 L80 104 L42 104 Z" fill="url(#tower-front)" />
+  <!-- Side Face (Left/Front Lit) -->
+  <path d="M42 28 L62 16 L62 104 L42 104 Z" fill="url(#tower-side)" stroke="#00f0ff" stroke-width="1" stroke-opacity="0.6"/>
+  <!-- Front Face (Shadow/Reflective) -->
+  <path d="M62 16 L80 25 L80 104 L62 104 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.5"/>
+
+  <!-- Rooftop Spire & Antenna -->
+  <line x1="62" y1="16" x2="62" y2="4" stroke="#00f0ff" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="62" cy="4" r="2.5" fill="#00f0ff" />
+  <circle cx="62" cy="4" r="5" fill="#00f0ff" opacity="0.4" />
+
+  <!-- Glass Curtain Wall Strips on Main Tower -->
+  <!-- Left Side Ribbons -->
+  <path d="M45 35 L59 27 L59 31 L45 39 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 43 L59 35 L59 39 L45 47 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 51 L59 43 L59 47 L45 55 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 59 L59 51 L59 55 L45 63 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 67 L59 59 L59 63 L45 71 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 75 L59 67 L59 71 L45 79 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 83 L59 75 L59 79 L45 87 Z" fill="url(#glass-cyan)"/>
+  <path d="M45 91 L59 83 L59 87 L45 95 Z" fill="url(#glass-cyan)"/>
+
+  <!-- Right Side Grid Windows -->
+  <path d="M65 29 L77 35 L77 39 L65 33 Z" fill="#38bdf8" fill-opacity="0.3"/>
+  <path d="M65 37 L77 43 L77 47 L65 41 Z" fill="#00f0ff" fill-opacity="0.7"/>
+  <path d="M65 45 L77 51 L77 55 L65 49 Z" fill="#38bdf8" fill-opacity="0.4"/>
+  <path d="M65 53 L77 59 L77 63 L65 57 Z" fill="#38bdf8" fill-opacity="0.2"/>
+  <path d="M65 61 L77 67 L77 71 L65 65 Z" fill="#00f0ff" fill-opacity="0.6"/>
+  <path d="M65 69 L77 75 L77 79 L65 73 Z" fill="#38bdf8" fill-opacity="0.3"/>
+  <path d="M65 77 L77 83 L77 87 L65 81 Z" fill="#00f0ff" fill-opacity="0.8"/>
+  <path d="M65 85 L77 91 L77 95 L65 89 Z" fill="#38bdf8" fill-opacity="0.4"/>
+
+  <!-- Modern Podium Base / Terrace -->
+  <path d="M16 102 L104 102 L98 107 L22 107 Z" fill="url(#roof-light)" opacity="0.8"/>
+  <line x1="10" y1="107" x2="110" y2="107" stroke="#00f0ff" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round"/>
+</svg>
+
